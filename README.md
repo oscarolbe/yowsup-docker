@@ -2,6 +2,7 @@
 
 #Installation
 
+```docker build -t resuelve/yowsup:alpine-3.11 .```
 ```docker pull tgalal/yowsup```
 
 #usage
