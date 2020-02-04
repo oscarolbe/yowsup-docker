@@ -1,9 +1,7 @@
 [yowsup](https://github.com/tgalal/yowsup) is a python library that implements WhatsApp's protocol. Through this docker image you are able to access yowsup's command line client and run different commands such as sending messages, creating groups, updating profile and many other things.
 
 #Installation
-
-```docker build -t resuelve/yowsup:alpine-3.11 .```
-```docker pull tgalal/yowsup```
+```docker build -t resuelve/yowsup:iacup .```
 
 #usage
 
@@ -15,13 +13,13 @@ yowsup will need access to a persistent storage to store generated keys data ins
 
 ### Step 1 request code
 ```
-docker run -v data:/root/.yowsup resuelve/yowsup:alpine-3.11 registration --cc COUNTRYCODE --phone NUMBER --requestcode sms
+docker run resuelve/yowsup:iacup registration --cc COUNTRYCODE --phone NUMBER --requestcode sms
 ```
 
 or
 
 ```
-docker run -v data:/root/.yowsup resuelve/yowsup:alpine-3.11 registration --cc COUNTRYCODE --phone NUMBER --requestcode voice
+docker run resuelve/yowsup:iacup registration --cc COUNTRYCODE --phone NUMBER --requestcode voice
 ```
 
 note that the phone number must also begin with the specified country code
@@ -29,7 +27,7 @@ note that the phone number must also begin with the specified country code
 ### Step 2 verify code
 
 ```
-docker run -v data:/root/.yowsup resuelve/yowsup:alpine-3.11 registration --cc COUNTRYCODE --phone NUMBER --register CODE
+docker run resuelve/yowsup:iacup registration --cc COUNTRYCODE --phone NUMBER --register CODE
 ```
 
 Save the returned password as you will need it for login
@@ -38,7 +36,7 @@ Save the returned password as you will need it for login
 ### Command line client
 
 ```
-docker run -v SOMEDIR:/root/.yowsup -it resuelve/yowsup:alpine-3.11 demos --login PHONE:PASSWORD --yowsup
+docker run -v ${PWD}/config:/root/.config/yowsup -it resuelve/yowsup:iacup demos --login PHONE:PASSWORD --yowsup
 ```
 
 This will start yowsup shell, type /L to login
@@ -56,7 +54,7 @@ Type /help for available commands
 This echoes back all received messages
 
 ```
-docker run -v SOMEDIR:/root/.yowsup tgalal/yowsup demos --login PHONE:PASSWORD --echo
+docker run -v ${PWD}/config:/root/.config/yowsup resuelve/yowsup:iacup demos --login PHONE:PASSWORD --echo
 ```
 
 ### One shot client
@@ -65,12 +63,14 @@ Login, send a message, exit
 
 
 ```
-docker run -v SOMEDIR:/root/.yowsup resuelve/yowsup:alpine-3.11 demos --login PHONE:PASSWORD --send CONTACT_PHONE MESSAGE
+docker run -v  resuelve/yowsup:iacup demos --login PHONE:PASSWORD --send CONTACT_PHONE MESSAGE
 ```
 
 ## E2E encryption
 To use e2e encryption in any of the clients, pass --moxie in any of the commands. For example:
 
 ```
-docker run -v SOMEDIR:/root/.yowsup -it resuelve/yowsup:alpine-3.11 demos --login PHONE:PASSWORD --yowsup --moxie
+docker run -v  -it resuelve/yowsup:iacup demos --login PHONE:PASSWORD --yowsup --moxie
 ```
+
+docker run -v ${PWD}/config:/root/.config/yowsup resuelve/yowsup:iacup demos --config-phone 5255XXXXXXXX --send 52155XXXXXXXX "Hi"

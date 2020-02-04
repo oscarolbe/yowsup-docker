@@ -6,4 +6,3 @@ python-axolotl==0.2.2
 python-axolotl-curve25519==0.4.1.post2
 python-dateutil==2.5.2
 six==1.10.0
-yowsup==3.2.3
